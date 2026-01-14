@@ -16,17 +16,3 @@ div.no-titlebar[aria-describedby="infoDialog"] > div.ui-dialog-titlebar {
 .ui-dialog-titlebar-close {
 	display:none;
 }
-
-#gg-banner {
-	padding: 0px;
-	margin: 0px;
-	background-color: lightblue;
-	background-repeat: no-repeat;
-	background-position: left center;
-	background-size: cover; /* Height fills the container, width auto */
-
-}
-#gg-banner > .info-content {
-	padding: 10px;
-	background-color: rgba(255, 255, 255, 0.5);
-}
