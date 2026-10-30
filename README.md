@@ -1,52 +1,37 @@
-# logobutton-jbplugin
+# GGPlugin
 
-In the JBrowse root, create plugins/LogoButton dir.  Place the files in this project in there.
+In the JBrowse root, create plugins/GGPlugin and place the files in this project there.
 
-Add the following to index.html in the JBrowse root directory.
-```
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-```
+The plugin reuses an existing global `window.jQuery`, regardless of its version.
+If none is available, it automatically loads jQuery 3.7.1 from
+`https://code.jquery.com/jquery-3.7.1.min.js`, with a Subresource Integrity check.
+No jQuery or jQuery UI script tags are needed in JBrowse's index.html.
+
+After jQuery is available, the plugin loads jQuery UI 1.14.1 and its base theme:
+
+- `https://code.jquery.com/ui/1.14.1/jquery-ui.min.js`
+- `https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css`
+
+Both use Subresource Integrity checks. An existing jQuery UI dialog widget is
+reused instead of loading the script again. jQuery UI 1.14.1 supports jQuery
+1.12.0+, 2.2.0+, and 3.6.0+, including the bundled CDN choice of jQuery 3.7.1.
+The dialog widget supports scripts in the dataset's banner content.
+
+When loading from the CDN, the browser must be able to reach `code.jquery.com`.
+Any Content Security Policy must allow scripts, styles, and theme images from
+that origin. The sidebar waits for jQuery, jQuery UI, and the theme before
+loading; a CDN failure is reported in the browser console.
 
 ### Plugin Configuration
 
-In the dataset's trackList.json, plugin configuration:
+In the dataset's trackList.json, enable the plugin:
 
-Standard configuration:
-```
-   "plugins" : ["LogoButton"],
+```json
+{
+  "plugins": ["GGPlugin"]
+}
 ```
 
-Extended configuration options:
-```
-   "plugins" : [
-      {
-        "name": "LogoButton",
-        "logo":"GG3-2.png", (image in dataset root)
-        "logoURL":"http://wheat.pw.usda.gov",
-        "logoText": "goto GrainGenes home",
-        "dialogTitle":"Assembly Information",
-        "showInfoDialog":true,
-        "hasInfoButton":true,
-        "showMethod":"slideDown" (can also be any JQuery UI effect, "scale","blind", etc.)
-        "animShowTime": 300, (milliseconds)
-        "animHideTime": 300, (milliseconds)
-        "dialogWidth":1000,  (pixels)
-        "hideTitle": false,
-        "autoHide": 5000,    (miliseconds),
-        "flashButton": true  (flashes the info button)
-      }
-   ],
-```
-### pageinfo.html Example
-Includes method of implementing a close button.
-```
-<div>
-    Click for more info about the operations of the demo: 
-    <a class="ui-button ui-widget ui-corner-all" target="_blank" href="https://jblast.readthedocs.io/en/latest/features.html#jblast-brief-tutorial">View Demo Guide</a>
-
-    <button id="infoDialogClose" class="ui-button ui-widget ui-corner-all">Close</button>
-
-</div>
-```
+The plugin inserts a banner into the hierarchical track sidebar after the view
+initializes. Place `pageinfo.html` and `banner.jpg` in the dataset's data root to
+provide the banner content and background image.
