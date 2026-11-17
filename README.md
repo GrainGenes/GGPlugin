@@ -34,4 +34,21 @@ In the dataset's trackList.json, enable the plugin:
 
 The plugin inserts a banner into the hierarchical track sidebar after the view
 initializes. Place `pageinfo.html` and `banner.jpg` in the dataset's data root to
-provide the banner content and background image.
+provide the banner content and background image. The banner includes GrainGenes
+and T3 Wheat logos from the plugin's `img` directory, with text wrapping around
+them. Existing dataset images with IDs `GGlogo` and `T3logo` are removed to
+avoid displaying duplicate logos. The logos remain visible if `pageinfo.html`
+cannot be loaded. Once the banner content is ready, the panel slides down from
+zero height over one second, revealing the background at its full size.
+
+### Banner test
+
+With the `jb-docker-browser-test` image built, run from this directory:
+
+```sh
+docker run --rm --network host --mount type=bind,src="$(pwd)",dst=/plugin,readonly \
+  -e NODE_PATH=/app/node_modules --entrypoint node jb-docker-browser-test:latest \
+  --test /plugin/tests/banner.test.js
+```
+
+The test needs network access to load jQuery from `code.jquery.com`.

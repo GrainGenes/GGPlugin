@@ -1,0 +1,30 @@
+#gg-banner.gg-banner-plain {
+    padding: 10px;
+}
+
+#gg-banner .info-content,
+#gg-banner .info-text {
+    display: flow-root;
+}
+
+#gg-banner .gg-banner-logos {
+    float: left;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+#gg-banner .gg-banner-logos img {
+    height: 50px;
+    width: auto;
+}
+
+#gg-banner .gg-banner-logos ~ h1:first-of-type {
+    margin-top: 0;
+}
+
+#gg-banner .info-text::after,
+#gg-banner::after {
+    content: "";
+    display: block;
+    clear: both;
+}
