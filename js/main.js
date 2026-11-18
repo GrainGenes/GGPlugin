@@ -16,6 +16,12 @@ define(
         JBrowsePlugin,
         Util
     ) {
+        const JQUERY_URL = 'https://code.jquery.com/jquery-3.7.1.min.js';
+        const JQUERY_UI_CSS_URL = 'https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css';
+        const JQUERY_UI_JS_URL = 'https://code.jquery.com/ui/1.14.1/jquery-ui.min.js';
+        const GRAINGENES_URL = '/';
+        const TRITICEAE_TOOLBOX_URL = 'https://triticeaetoolbox.org/wheat/';
+
         let jqueryReady;
         let jqueryUIReady;
         let bannerStyleReady;
@@ -43,7 +49,7 @@ define(
             if (!jqueryReady) {
                 jqueryReady = new Promise(function(resolve, reject) {
                     const script = document.createElement('script');
-                    script.src = 'https://code.jquery.com/jquery-3.7.1.min.js';
+                    script.src = JQUERY_URL;
                     script.integrity = 'sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=';
                     script.crossOrigin = 'anonymous';
                     script.onload = function() {
@@ -67,7 +73,7 @@ define(
                 const themeReady = new Promise(function(resolve, reject) {
                     const link = document.createElement('link');
                     link.rel = 'stylesheet';
-                    link.href = 'https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css';
+                    link.href = JQUERY_UI_CSS_URL;
                     link.integrity = 'sha256-upLUpAU8h+pO1VS/mXF6vWuo3QKtT9m/SUElNjr1CX8=';
                     link.crossOrigin = 'anonymous';
                     link.onload = resolve;
@@ -82,7 +88,7 @@ define(
                         return;
                     }
                     const script = document.createElement('script');
-                    script.src = 'https://code.jquery.com/ui/1.14.1/jquery-ui.min.js';
+                    script.src = JQUERY_UI_JS_URL;
                     script.integrity = 'sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=';
                     script.crossOrigin = 'anonymous';
                     script.onload = function() {
@@ -156,10 +162,10 @@ define(
                                 if (!content.length) content = banner;
                                 const imagePath = args.location + '/img/';
                                 const logos = $('<span class="gg-banner-logos"></span>');
-                                $('<a target="_blank" rel="noopener noreferrer" title="GrainGenes" href="https://wheat.pw.usda.gov"></a>')
+                                $('<a target="_blank" rel="noopener noreferrer" title="GrainGenes" href="' + GRAINGENES_URL + '"></a>')
                                     .append($('<img alt="GrainGenes">').attr('src', imagePath + 'GG3.png'))
                                     .appendTo(logos);
-                                $('<a target="_blank" rel="noopener noreferrer" title="The Triticeae Toolbox" href="https://triticeaetoolbox.org/wheat/"></a>')
+                                $('<a target="_blank" rel="noopener noreferrer" title="The Triticeae Toolbox" href="' + TRITICEAE_TOOLBOX_URL + '"></a>')
                                     .append($('<img alt="T3 Wheat">').attr('src', imagePath + 'T3_black.png'))
                                     .appendTo(logos);
                                 content.prepend(logos);
